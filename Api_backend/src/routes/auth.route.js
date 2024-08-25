@@ -4,7 +4,7 @@ const { login, register, createUser, getUsers } = require("../controllers/auth.c
 const authRouter = Router();
 
 authRouter.post("/login", login).post("/register", register);
-// authRouter.get("/login", login).get("/register", register);
+authRouter.get("/login", login).get("/register", register);
 // authRouter.post("/", getUsers).post("/", createUser);
 // authRouter.get("/", getUsers).get("/", createUser);
 

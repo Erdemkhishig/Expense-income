@@ -18,7 +18,7 @@ export default function Info1() {
     React.useEffect(() => {
         const timer = setTimeout(() => {
             setShowMainContent(true);
-        }, 2000);
+        }, 1000);
 
         return () => clearTimeout(timer);
     }, []);
