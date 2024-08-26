@@ -157,9 +157,9 @@ const color = [
 const URL = "http://localhost:3001"; // Ensure this matches your server URL
 
 export const Addcategory = () => {
-    const [newCategory, setNewCategory] = useState({ title: "", color: "", name: "", iconName: "" });
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
     const [selectedColor, setSelectedColor] = useState('#0000FF');
-
+    const { setAllCategories, allCategories, createCategory } = useData();
     const handleCatChange = (iconName) => {
         console.log('Icon selected:', iconName); // Debugging line
         setNewCategory(prev => ({ ...prev, iconName }));
@@ -171,21 +171,25 @@ export const Addcategory = () => {
         setNewCategory(prev => ({ ...prev, color: colorCode }));
     };
 
-    const saveCategory = async () => {
-        console.log('Saving category:', newCategory); // Debugging line
-        try {
-            const response = await axios.post(`${URL}/categories`, {
-                name: newCategory.title,
-                color: newCategory.color,
-                iconName: newCategory.iconName,
-                createdAt: new Date(),
-            });
+    // const saveCategory = async () => {
 
-            console.log('Category saved:', response.data);
-        } catch (error) {
-            console.error('Error saving category:', error);
-        }
-    };
+    //     console.log('Saving category:', newCategory); // Debugging line
+    //     try {
+    //         const response = await axios.post(`${URL}/categories`, {
+    //             name: newCategory.name,
+    //             iconName: newCategory.iconName,
+    //         }, {
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //             },
+    //         });
+    //         console.log('Category saved:', response.data);
+    //         setAllCategories([...allCategories, newCategory])
+    //     } catch (error) {
+    //         console.error('Error saving category:', error);
+    //     }
+
+
 
 
     const FaIcon = newCategory.iconName ? Icons[newCategory.iconName] : null;
@@ -239,15 +243,15 @@ export const Addcategory = () => {
                         </Select>
                         <Input
                             placeholder="Category Name"
-                            value={newCategory.title}
-                            onChange={(e) => setNewCategory(prev => ({ ...prev, title: e.target.value }))}
+                            value={newCategory.name}
+                            onChange={(e) => setNewCategory(prev => ({ ...prev, name: e.target.value }))}
                         />
                     </div>
                     <DialogFooter className="flex w-96 px-0 justify-center">
                         <Button
                             className="bg-green-600 rounded-2xl p-2 w-full text-white"
                             type="button"
-                            onClick={saveCategory} // Call saveCategory on button click
+                            onClick={() => createCategory(newCategory.name, newCategory.iconName)} // Call saveCategory on button click
                         >
                             Save changes
                         </Button>
@@ -256,4 +260,4 @@ export const Addcategory = () => {
             </Dialog>
         </div>
     );
-};
+}

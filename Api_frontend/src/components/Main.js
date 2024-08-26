@@ -23,7 +23,7 @@ import {
 import { RiDeleteBinLine } from "react-icons/ri";
 import { parseISO, format } from "date-fns";
 
-export const Main = ({ setAccounts, accounts, setCategories, categories }) => {
+export const Main = ({ setAccounts, accounts }) => {
     const URL = "http://localhost:3001";
 
     const handleDelete = async (id) => {
@@ -35,9 +35,9 @@ export const Main = ({ setAccounts, accounts, setCategories, categories }) => {
         }
     };
 
-    const getCategoryById = (categoryId) => {
-        return categories.find(category => category.id === categoryId) || {};
-    };
+    // const getCategoryById = (categoryId) => {
+    //     return categories.find(category => category.id === categoryId) || {};
+    // };
 
 
     return (
@@ -95,8 +95,8 @@ export const Main = ({ setAccounts, accounts, setCategories, categories }) => {
 
                 <div className="flex flex-col gap-4">
                     {accounts.map((account) => {
-                        const category = getCategoryById(account.category);
-                        const CategoryIcon = category.icon ? Icons[category.icon] : Icons["FaHouse"];
+                        // const category = getCategoryById(account.category);
+                        // const CategoryIcon = category.icon ? Icons[category.icon] : Icons["FaHouse"];
                         // const parsed = parseISO(account.createDate)
                         // const formated = format(parsed, "MM/dd/yyyy");
                         return (
@@ -107,11 +107,11 @@ export const Main = ({ setAccounts, accounts, setCategories, categories }) => {
                                         htmlFor={`checkbox-${account.id}`}
                                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                         <div className="flex gap-4 justify-center items-center">
-                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white`} style={{ backgroundColor: category.color }}>
+                                            {/* <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white`} style={{ backgroundColor: category.color }}>
                                                 <CategoryIcon size={20} />
-                                            </div>
+                                            </div> */}
                                             <div className="flex flex-col justify-center items-center gap-2">
-                                                <p >{category.name}</p>
+                                                {/* <p >{category.name}</p> */}
 
                                                 <p className="text-gray-400">{account.time}</p>
                                                 {/* <p className="text-gray-300">{formated}</p> */}

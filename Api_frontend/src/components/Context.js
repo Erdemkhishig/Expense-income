@@ -1,3 +1,6 @@
+
+
+
 "use client"
 import { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
@@ -8,11 +11,10 @@ export const UserContext = createContext(null);
 const URL = "http://localhost:3001"
 
 export const UserContextProvider = ({ children }) => {
-
-    const [userInfo, setUserInfo] = useState({ name: "ner", email: "mailaddress" })
-    // const [newCategory, setNewCategory] = useState({ name: "", icon: "", color: "" });
     const [allCategories, setAllCategories] = useState([]);
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
+
+
 
     const getAllCategories = async () => {
         try {
@@ -21,43 +23,50 @@ export const UserContextProvider = ({ children }) => {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            // console.log(userInfo, newCategory, " +++++++");
             setAllCategories(response.data);
         } catch (error) {
-            console.error("There was an error fetching the accounts!", error);
+            console.error("There was an error fetching the categories!", error);
         }
     };
 
-    const createCategory = async (title, color, name, iconName) => {
+    const createCategory = async (name, iconName) => {
         try {
-            const createCategory = await axios.post(`${URL}/categories`, { title, color, name, iconName, createdAt: new Date() });
-            setAllCategories(prev => [...prev, createCategory.data]);
+            const response = await axios.post(`${URL}/categories`, {
+                name,
+                iconName,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            setAllCategories(prev => [...prev, response.data]);
         } catch (error) {
             console.error("There was an error creating the category!", error);
         }
-
     };
 
-    const getCategoryById = async (id) => {
+    const deleteCategory = async (categoryId) => {
         try {
-            const response = await axios.get(`${URL}/categories/${id}`);
-            return response.data;
+            await axios.delete(`${URL}/categories/${categoryId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            setAllCategories(prev => prev.filter(category => category.id !== categoryId));
         } catch (error) {
-            console.error("There was an error fetching the category!", error);
+            console.error("There was an error deleting the category!", error);
         }
     };
 
-
     useEffect(() => {
-        getAllCategories()
-    }, [])
+        getAllCategories();
+    }, []);
 
     return (
-        <UserContext.Provider value={{ userInfo, setUserInfo, getAllCategories, createCategory, getCategoryById, allCategories }}>
+        <UserContext.Provider value={{ getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories }}>
             {children}
         </UserContext.Provider>
     )
-
 }
 
 export const useData = () => useContext(UserContext)

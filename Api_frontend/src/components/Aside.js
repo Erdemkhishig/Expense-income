@@ -183,7 +183,7 @@ export function Aside({ setAccounts, accounts }) {
     const [payee, setPayee] = useState("");
     const URL = "http://localhost:3001";
     const { allCategories, createCategory, getCategoryById } = useData();
-    const [newCategory, setNewCategory] = useState({ title: "", color: "", name: "", iconName: "" });
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
     const [fetchCategoryId, setFetchCategoryId] = useState(null);
     const [categoryDetails, setCategoryDetails] = useState(null);
     const [range, setRange] = useState({ min: 0, max: 100000 });

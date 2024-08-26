@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
 
                 if (!token) return;
 
-                const res = await api.get("/users/me", {
+                const res = await api.get("/user/me", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

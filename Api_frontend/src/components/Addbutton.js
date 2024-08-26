@@ -52,7 +52,6 @@ import { UserContext } from './Context';
 
 
 export const Addbutton = ({ setAccounts, accounts }) => {
-    const FaIcon = Icons["FaHouse"]
     const [date, setDate] = React.useState();
 
     const [type, setType] = useState('Income');
@@ -69,8 +68,8 @@ export const Addbutton = ({ setAccounts, accounts }) => {
     const [category, setCategory] = useState("");
     const [time, setTime] = useState("");
     const [payee, setPayee] = useState("");
-    const URL = "http://localhost:3001"
-    const { allCategories } = React.useContext(UserContext)
+    const URL = "http://localhost:3001";
+    const { allCategories, createCategory } = React.useContext(UserContext);
     useEffect(() => {
         const getData = async () => {
             try {
@@ -83,37 +82,37 @@ export const Addbutton = ({ setAccounts, accounts }) => {
         getData();
     }, []);
 
-    const createAccount = async () => {
-        const newAccount = {
-            id: uuidv4(),
-            title,
-            amount,
-            category,
-            payee,
-            time,
-            createDate: date,
-            type,
+    // const createAccount = async () => {
+    //     const newAccount = {
+    //         id: uuidv4(),
+    //         title,
+    //         amount,
+    //         category,
+    //         payee,
+    //         time,
+    //         createDate: date,
+    //         type,
 
-        };
-        try {
-            const response = await axios.post(`${URL}/accounts`,
-                newAccount
-            );
-            setAccounts([...accounts, response.data]);
-        } catch (error) {
-            console.error(error)
-        }
-    };
+    //     };
+    //     try {
+    //         const response = await axios.post(`${URL}/accounts`,
+    //             newAccount
+    //         );
+    //         setAccounts([...accounts, response.data]);
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // };
 
 
-    const handleDelete = async (id) => {
-        try {
-            await axios.delete(`${URL}/accounts/${id}`);
-            setAccounts(accounts.filter((account) => account.id !== id));
-        } catch (error) {
-            console.error("There was an error deleting the account!", error);
-        }
-    };
+    // const handleDelete = async (id) => {
+    //     try {
+    //         await axios.delete(`${URL}/accounts/${id}`);
+    //         setAccounts(accounts.filter((account) => account.id !== id));
+    //     } catch (error) {
+    //         console.error("There was an error deleting the account!", error);
+    //     }
+    // };
 
 
 
@@ -185,7 +184,7 @@ export const Addbutton = ({ setAccounts, accounts }) => {
                                             </DialogTrigger>
                                             {
                                                 allCategories.map((item, index) => {
-                                                    const FaIcon = Icons[item.icon]
+                                                    const FaIcon = Icons[item.iconName]
                                                     return (
                                                         <SelectItem value={item.id} key={index}>
                                                             <div className='flex items-center gap-2'>
@@ -241,7 +240,7 @@ export const Addbutton = ({ setAccounts, accounts }) => {
                             </div>
 
                             <button
-                                onClick={createAccount} className={`w-full py-2 text-white ${buttonColor} rounded-md`}
+                                onClick={createCategory} className={`w-full py-2 text-white ${buttonColor} rounded-md`}
                                 type="submit"
                             >
                                 Add Records
@@ -271,5 +270,3 @@ export const Addbutton = ({ setAccounts, accounts }) => {
         </div>
     )
 }
-
-

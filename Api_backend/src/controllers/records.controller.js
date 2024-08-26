@@ -13,11 +13,11 @@ const getAllRecords = async (req, res) => {
 };
 
 const createRecord = async (req, res) => {
-    const { id, name  , amount, userId, time, date, categoryId, payee, note, status} = req.body;
+    const { id, name, amount, userId, time, date, categoryId, payee, note, status } = req.body;
 
     const [newRecord] = await db
         .insert(records)
-        .values({id, name  , amount, userId, time, date, categoryId, payee, note, status })
+        .values({ id, name, amount, userId, time, date, categoryId, payee, note, status })
         .returning();
 
     res.json(newRecord);
