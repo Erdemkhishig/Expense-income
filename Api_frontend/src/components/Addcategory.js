@@ -59,107 +59,14 @@ const color = [
     { color: "red", colorCode: "#FF0000" },
 ];
 
-// const URL = "http://localhost:3001"
-
-// export const Addcategory = () => {
-//     // const { userInfo, setAllCategories, getData } = useContext(UserContext);
-
-//     const { createCategory } = useData();
-//     const [newCategory, setNewCategory] = useState({ title: "", color: "", name: "", iconName: "" });
-
-//     const [selectedColor, setSelectedColor] = useState('#0000FF');
-
-
-
-//     const handleCatChange = (iconName) => {
-//         setNewCategory(prev => ({ ...prev, iconName }));
-//     };
-
-//     const handleColorChange = (colorCode) => {
-//         setSelectedColor(colorCode);
-//         setNewCategory(prev => ({ ...prev, color: colorCode }));
-//     };
-
-
-//     const FaIcon = newCategory.iconName ? Icons[newCategory.iconName] : null;
-
-
-
-//     return (
-//         <div>
-//             <Dialog>
-//                 <DialogTrigger asChild>
-//                     <Button className="w-full flex gap-2" variant="outline">
-//                         <div className="border-2 border-blue-600 rounded-full bg-blue-600">
-//                             <Plus size={16} color="white" />
-//                         </div>
-//                         <div>Add Category</div>
-//                     </Button>
-//                 </DialogTrigger>
-//                 <DialogContent className="sm:max-w-[425px]">
-//                     <DialogHeader>
-//                         <DialogTitle>Add Category</DialogTitle>
-//                     </DialogHeader>
-//                     <div className="flex gap-4">
-//                         <Select onValueChange={handleCatChange}>
-//                             <SelectTrigger className="w-fit">
-//                                 <SelectValue placeholder={FaIcon ? <FaIcon style={{ color: selectedColor }} /> : "Select Icon"} />
-//                             </SelectTrigger>
-//                             <SelectContent>
-//                                 <SelectGroup>
-//                                     <div className="grid grid-cols-6 grid-rows-4 py-4 pr-4">
-//                                         {cat.map((item, index) => {
-//                                             const Icon = Icons[item];
-//                                             return (
-//                                                 <SelectItem key={index} value={item}>
-//                                                     <div style={{ color: selectedColor }}>
-//                                                         <Icon size={24} />
-//                                                     </div>
-//                                                 </SelectItem>
-//                                             );
-//                                         })}
-//                                     </div>
-//                                     <div className="flex justify-between pr-4 pl-8 py-4 border-t-2">
-//                                         {color.map((item, index) => (
-//                                             <button
-//                                                 key={index}
-//                                                 style={{ backgroundColor: item.colorCode }}
-//                                                 className={`w-8 h-8 rounded-full border-2 border-gray-200 ${selectedColor === item.colorCode ? 'border-black' : ''}`}
-//                                                 onClick={() => handleColorChange(item.colorCode)}
-//                                             />
-//                                         ))}
-//                                     </div>
-//                                 </SelectGroup>
-//                             </SelectContent>
-//                         </Select>
-//                         <Input
-//                             placeholder="Category Name"
-//                             value={newCategory.title}
-//                             onChange={(e) => setNewCategory(prev => ({ ...prev, title: e.target.value }))}
-//                         />
-//                     </div>
-//                     <DialogFooter className="flex w-96 px-0 justify-center">
-//                         <Button
-//                             className="bg-green-600 rounded-2xl p-2 w-full text-white"
-//                             type="button"
-//                             onClick={() => createCategory(newCategory)}
-//                         >
-//                             Save changes
-//                         </Button>
-//                     </DialogFooter>
-//                 </DialogContent>
-//             </Dialog>
-//         </div>
-//     );
-// };
-
 
 const URL = "http://localhost:3001"; // Ensure this matches your server URL
 
 export const Addcategory = () => {
     const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
     const [selectedColor, setSelectedColor] = useState('#0000FF');
-    const { setAllCategories, allCategories, createCategory } = useData();
+    const {  createCategory } = useData();
+    
     const handleCatChange = (iconName) => {
         console.log('Icon selected:', iconName); // Debugging line
         setNewCategory(prev => ({ ...prev, iconName }));

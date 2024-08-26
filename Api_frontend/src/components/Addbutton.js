@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext} from 'react'
 import { v4 as uuidv4 } from 'uuid';
+
 
 import * as Icons from "react-icons/fa6";
 import {
@@ -46,41 +47,50 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { Addcategory } from './Addcategory';
-import { Categorybar } from './Categorybar';
-import { UserContext } from './Context';
 
+import { useData, UserContext } from './Context';
 
+const URL = "http://localhost:3001";
 
-export const Addbutton = ({ setAccounts, accounts }) => {
+export const Addbutton = () => {
     const [date, setDate] = React.useState();
 
+    const [newRecord, setNewRecord] = useState({ name:"", amount:"",userId:"",time:"", date:"",categoryId:"",payee:"",note:"",status:""});
+    const {getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories,  getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords } = useData();
+    // const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
     const [type, setType] = useState('Income');
     const activeColor = type === 'Income' ? 'bg-blue-500' : 'bg-green-500';
     const buttonColor = type === 'Income' ? 'bg-blue-600' : 'bg-green-500';
 
+    const handleCatChange = (iconName) => {
+        console.log('Icon selected:', iconName); 
+        setNewCategory(prev => ({ ...prev, iconName }));
+    };
 
     // const handleLeftClick = () => setPosition('left-0 && bg-blue-500');
     // const handleRightClick = () => setPosition('left-[182px] && bg-green-500');
 
     // const [accounts, setAccounts] = useState([]);
-    const [title, setTitle] = useState("");
-    const [amount, setAmount] = useState("");
-    const [category, setCategory] = useState("");
-    const [time, setTime] = useState("");
-    const [payee, setPayee] = useState("");
-    const URL = "http://localhost:3001";
-    const { allCategories, createCategory } = React.useContext(UserContext);
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const response = await axios.get(`${URL}/accounts`);
-                setAccounts(response.data);
-            } catch (error) {
-                console.error("There was an error fetching the accounts!", error);
-            }
-        };
-        getData();
-    }, []);
+
+    // const [title, setTitle] = useState("");
+    // const [amount, setAmount] = useState("");
+    // const [category, setCategory] = useState("");
+    // const [time, setTime] = useState("");
+    // const [payee, setPayee] = useState("");
+
+
+
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         try {
+    //             const response = await axios.get(`${URL}/accounts`);
+    //             setAccounts(response.data);
+    //         } catch (error) {
+    //             console.error("There was an error fetching the accounts!", error);
+    //         }
+    //     };
+    //     getData();
+    // }, []);
 
     // const createAccount = async () => {
     //     const newAccount = {
@@ -115,7 +125,7 @@ export const Addbutton = ({ setAccounts, accounts }) => {
     // };
 
 
-
+    // const FaIcon = newCategory.iconName ? Icons[newCategory.iconName] : null;
 
     return (
         <div>
@@ -145,7 +155,7 @@ export const Addbutton = ({ setAccounts, accounts }) => {
                                     <button
                                         type="button"
                                         className="absolute left-0 top-0 h-full w-1/2 text-center py-2 bg-transparent cursor-pointer z-10"
-                                        onClick={() => setType('Income')}
+                                        onClick={() =>  setType('Income')}
                                     >
                                         Expense
                                     </button>
@@ -164,13 +174,11 @@ export const Addbutton = ({ setAccounts, accounts }) => {
                             <button onClick={bgcolor} className={chckd ? 'w-1/2 rounded-3xl  bg-green-500 text-white' : 'w-1/2 rounded-3xl  bg-gray-200 text-black'}>Income</button>
                         </div> */}
                             <input className='border'
-                                value={amount}
+                                value={newRecord.amount}
                                 placeholder='amount'
-                                onChange={(event) => {
-                                    setAmount(event.target.value);
-                                }} />
+                                onChange={(e) => setNewRecord(prev => ({ ...prev, amount: e.target.value }))} />
                             <p>Category</p>
-                            <Select onValueChange={val => setCategory(val)}>
+                            <Select onValueChange={handleCatChange}>
                                 <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Find or choose category" />
                                 </SelectTrigger>
@@ -228,40 +236,40 @@ export const Addbutton = ({ setAccounts, accounts }) => {
                                     </Popover>
                                 </div>
 
-                                <div className="flex flex-col w-full">
+                                {/* <div className="flex flex-col w-full">
                                     Time
                                     <Input type="time"
-                                        value={payee}
+                                        value={time}
                                         placeholder=''
                                         onChange={(event) => {
                                             setTime(event.target.value);
                                         }} />
-                                </div>
+                                </div> */}
                             </div>
 
-                            <button
-                                onClick={createCategory} className={`w-full py-2 text-white ${buttonColor} rounded-md`}
-                                type="submit"
+                            <Button className={`w-full py-2 text-white ${buttonColor} rounded-md`}
+                               onClick={() => createRecord(newRecord.amount, newRecord.payee, newRecord.note)} 
+                                type="button"
                             >
                                 Add Records
-                            </button>
+                            </Button>
                         </div>
                         <div className="w-full h-full px-2">
                             <p className='p-2'>Payee</p>
                             <input className='border p-2'
-                                value={payee}
+                                value={newRecord.payee}
                                 placeholder=''
-                                onChange={(event) => {
-                                    setPayee(event.target.value);
+                                onChange={(e) => {
+                                    setNewRecord(prev => ({...prev, payee: e.target.value}));
                                 }} />
 
                             <p className="p-2 my-2">Note</p>
                             <Textarea
                                 className="h-[64%]"
                                 placeholder="Type your message here."
-                                value={title}
-                                onChange={(event) => {
-                                    setTitle(event.target.value);
+                                value={newRecord.note}
+                                onChange={(e) => {
+                                    setNewRecord(prev => ({...prev, note: e.target.value}));
                                 }} />
                         </div>
                     </div>

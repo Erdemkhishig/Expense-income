@@ -22,18 +22,24 @@ import {
 } from "@/components/ui/select";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { parseISO, format } from "date-fns";
+import { useData, UserContext } from './Context';
+
 
 export const Main = ({ setAccounts, accounts }) => {
     const URL = "http://localhost:3001";
 
-    const handleDelete = async (id) => {
-        try {
-            await axios.delete(`${URL}/accounts/${id}`);
-            setAccounts(accounts.filter((account) => account.id !== id));
-        } catch (error) {
-            console.error("There was an error deleting the account!", error);
-        }
-    };
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
+    const [newRecord, setNewRecord] = useState({id:"",name:"", amount:"",userId:"",time:"", date:"",categoryId:"",payee:"",note:"",status:""});
+    const {getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories,  getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords } = useData();
+
+    // const handleDelete = async (id) => {
+    //     try {
+    //         await axios.delete(`${URL}/accounts/${id}`);
+    //         setAccounts(accounts.filter((account) => account.id !== id));
+    //     } catch (error) {
+    //         console.error("There was an error deleting the account!", error);
+    //     }
+    // };
 
     // const getCategoryById = (categoryId) => {
     //     return categories.find(category => category.id === categoryId) || {};
@@ -94,17 +100,17 @@ export const Main = ({ setAccounts, accounts }) => {
                 <p className="font-bold py-4">Today</p>
 
                 <div className="flex flex-col gap-4">
-                    {accounts.map((account) => {
+                    {allRecords.map((account) => {
                         // const category = getCategoryById(account.category);
                         // const CategoryIcon = category.icon ? Icons[category.icon] : Icons["FaHouse"];
                         // const parsed = parseISO(account.createDate)
                         // const formated = format(parsed, "MM/dd/yyyy");
                         return (
-                            <div key={account.id} className="flex justify-between items-center space-x-2 border-2 p-4 rounded-2xl bg-white">
+                            <div key={allRecords.id} className="flex justify-between items-center space-x-2 border-2 p-4 rounded-2xl bg-white">
                                 <div className="flex items-center pl-4 gap-4">
-                                    <Checkbox id={`checkbox-${account.id}`} />
+                                    <Checkbox id={`checkbox-${allRecords.id}`} />
                                     <label
-                                        htmlFor={`checkbox-${account.id}`}
+                                        htmlFor={`checkbox-${allRecords.id}`}
                                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                         <div className="flex gap-4 justify-center items-center">
                                             {/* <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white`} style={{ backgroundColor: category.color }}>
@@ -113,7 +119,7 @@ export const Main = ({ setAccounts, accounts }) => {
                                             <div className="flex flex-col justify-center items-center gap-2">
                                                 {/* <p >{category.name}</p> */}
 
-                                                <p className="text-gray-400">{account.time}</p>
+                                                <p className="text-gray-400">{allRecords.time}</p>
                                                 {/* <p className="text-gray-300">{formated}</p> */}
 
 
@@ -124,13 +130,13 @@ export const Main = ({ setAccounts, accounts }) => {
                                 </div>
                                 <p
                                     style={{
-                                        color: account.type === 'Expense' ? 'green' : 'red'
+                                        color: allRecords.type === 'Expense' ? 'green' : 'red'
                                     }}
                                 >
-                                    {account.type === 'Income' ? `-${account.amount}` : `+${account.amount}`}
+                                    {allRecords.type === 'Income' ? `-${allRecords.amount}` : `+${allRecords.amount}`}
                                 </p>
                                 <button
-                                    onClick={() => handleDelete(account.id)}
+                                    onClick={() => handleDelete(allRecords.id)}
                                 >
                                     <RiDeleteBinLine size={24} color="red" />
                                 </button>

@@ -210,7 +210,7 @@ export function Aside({ setAccounts, accounts }) {
                     <CardTitle>Records</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Addbutton setAccounts={setAccounts} accounts={accounts} />
+                    <Addbutton />
                     <input className="border-2 border-gray-400 rounded-md my-4 w-full p-1" type="Search" placeholder="  Search" />
                     <div>
                         <p className="font-semi-bold py-3">Types</p>
