@@ -41,5 +41,15 @@ const deleteCategory = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
-
-module.exports = { getAllCategories, createCategory, deleteCategory };
+const getCategoryId = async (req, res) => {
+    const categoryId = req.params.id
+    try {
+        const categoriesData = await db.query.categories.findMany()
+        const chooseCategory = categoriesData.find((category) => category.id == categoryId)
+        res.json(chooseCategory)
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+module.exports = { getAllCategories, createCategory, deleteCategory, getCategoryId };

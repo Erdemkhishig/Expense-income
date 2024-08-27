@@ -13,10 +13,9 @@ const auth = pgTable("auth", {
 
 const records = pgTable("records", {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
     amount: varchar("amount", { length: 256 }),
     userId: integer("userId"),
-    time: timestamp("time"),
+    time: varchar("time"),
     date: varchar("date"),
     categoryId: integer("categoryId"),
     payee: varchar("payee", { length: 256 }),
@@ -28,7 +27,7 @@ const categories = pgTable("categories", {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
     iconName: varchar("iconName", { length: 256 }),
-
+    color: varchar("iconName", { length: 256 }),
 });
 
 

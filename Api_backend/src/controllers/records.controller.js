@@ -9,18 +9,22 @@ const getAllRecords = async (req, res) => {
         //     category: true,
         // },
     });
-    res.json([recordData])
+    res.json(recordData)
 };
 
 const createRecord = async (req, res) => {
-    const { id, name, amount, userId, time, date, categoryId, payee, note, status } = req.body;
+    const { newRecords } = req.body;
+    console.log(newRecords, "---");
 
-    const [newRecord] = await db
+    // const { id, name, amount, userId, time, date, categoryId, payee, note, status } = req.body;
+    const { amount, userId, time, date, categoryId, payee, note, status } = newRecords;
+
+    const createdRecord = await db
         .insert(records)
-        .values({ id, name, amount, userId, time, date, categoryId, payee, note, status })
+        .values({ amount, userId, time, date, categoryId, payee, note, status })
         .returning();
 
-    res.json(newRecord);
+    res.json(createdRecord);
 };
 
 const deleteRecord = async (req, res) => {

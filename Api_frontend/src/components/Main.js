@@ -23,14 +23,15 @@ import {
 import { RiDeleteBinLine } from "react-icons/ri";
 import { parseISO, format } from "date-fns";
 import { useData, UserContext } from './Context';
+import { OneRecord } from "./records";
 
 
-export const Main = ({ setAccounts, accounts }) => {
+export const Main = ({ }) => {
     const URL = "http://localhost:3001";
 
     const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
-    const [newRecord, setNewRecord] = useState({id:"",name:"", amount:"",userId:"",time:"", date:"",categoryId:"",payee:"",note:"",status:""});
-    const {getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories,  getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords } = useData();
+    const [newRecord, setNewRecord] = useState({ name: "", amount: "", userId: "", time: "", date: "", categoryId: "", payee: "", note: "", status: "" });
+    const { getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords } = useData();
 
     // const handleDelete = async (id) => {
     //     try {
@@ -100,49 +101,9 @@ export const Main = ({ setAccounts, accounts }) => {
                 <p className="font-bold py-4">Today</p>
 
                 <div className="flex flex-col gap-4">
-                    {allRecords.map((account) => {
-                        // const category = getCategoryById(account.category);
-                        // const CategoryIcon = category.icon ? Icons[category.icon] : Icons["FaHouse"];
-                        // const parsed = parseISO(account.createDate)
-                        // const formated = format(parsed, "MM/dd/yyyy");
-                        return (
-                            <div key={allRecords.id} className="flex justify-between items-center space-x-2 border-2 p-4 rounded-2xl bg-white">
-                                <div className="flex items-center pl-4 gap-4">
-                                    <Checkbox id={`checkbox-${allRecords.id}`} />
-                                    <label
-                                        htmlFor={`checkbox-${allRecords.id}`}
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                        <div className="flex gap-4 justify-center items-center">
-                                            {/* <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white`} style={{ backgroundColor: category.color }}>
-                                                <CategoryIcon size={20} />
-                                            </div> */}
-                                            <div className="flex flex-col justify-center items-center gap-2">
-                                                {/* <p >{category.name}</p> */}
-
-                                                <p className="text-gray-400">{allRecords.time}</p>
-                                                {/* <p className="text-gray-300">{formated}</p> */}
-
-
-
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                                <p
-                                    style={{
-                                        color: allRecords.type === 'Expense' ? 'green' : 'red'
-                                    }}
-                                >
-                                    {allRecords.type === 'Income' ? `-${allRecords.amount}` : `+${allRecords.amount}`}
-                                </p>
-                                <button
-                                    onClick={() => handleDelete(allRecords.id)}
-                                >
-                                    <RiDeleteBinLine size={24} color="red" />
-                                </button>
-                            </div>
-                        );
-                    })}
+                    {allRecords.map((record, index) => (
+                        <OneRecord key={index} record={record} />
+                    ))}
                 </div>
             </div>
         </div>

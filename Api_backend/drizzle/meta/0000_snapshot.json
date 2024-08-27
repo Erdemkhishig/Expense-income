@@ -1,5 +1,5 @@
 {
-  "id": "605ae909-754e-4fa6-b68c-af9a48c4c734",
+  "id": "0e0fa0ce-cbf7-4cbd-8224-d6378da4b021",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -48,12 +48,6 @@
           "primaryKey": true,
           "notNull": true
         },
-        "name": {
-          "name": "name",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": false
-        },
         "amount": {
           "name": "amount",
           "type": "varchar(256)",
@@ -68,7 +62,7 @@
         },
         "time": {
           "name": "time",
-          "type": "timestamp",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },

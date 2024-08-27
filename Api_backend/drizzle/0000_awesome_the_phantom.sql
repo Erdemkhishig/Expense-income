@@ -4,20 +4,19 @@ CREATE TABLE IF NOT EXISTS "auth" (
 	"email" varchar(256),
 	"password" varchar(8)
 );
-
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "records" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"name" varchar(256),
 	"amount" varchar(256),
 	"userId" integer,
-	"time" timestamp,
+	"time" varchar,
 	"date" varchar,
 	"categoryId" integer,
 	"payee" varchar(256),
 	"note" varchar(256),
 	"status" varchar(256)
 );
-
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "categories" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" varchar(256),

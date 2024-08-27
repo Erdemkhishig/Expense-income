@@ -64,16 +64,6 @@ export const UserContextProvider = ({ children }) => {
 
     const [allRecords, setAllRecords] = useState([]);
 
-    // const [token, setToken] = useState(localStorage.getItem('token') || ''); // Retrieve token from localStorage
-
-    // useEffect(() => {
-    //     if (token) {
-    //         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    //     } else {
-    //         delete api.defaults.headers.common['Authorization'];
-    //     }
-    // }, [token]);
-
     const getAllRecords = async () => {
         try {
             const response = await axios.get(`${URL}/records`, {
@@ -81,25 +71,18 @@ export const UserContextProvider = ({ children }) => {
                     Authorization: `Bearer ${token}`,
                 }
             });
+
+            console.log(response.data, "======")
             setAllRecords(response.data);
         } catch (error) {
             console.error("There was an error fetching the categories!", error);
         }
     };
 
-    const createRecord = async (id,name, amount,userId,time, date,categoryId,payee,note,status) => {
+    const createRecord = async (newRecords) => {
         try {
             const response = await axios.post(`${URL}/records`, {
-                id,
-                name,
-                amount,
-                userId,
-                time,
-                date,
-                categoryId,
-                payee,
-                note,
-                status
+                newRecords
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -142,7 +125,7 @@ export const UserContextProvider = ({ children }) => {
 
 
     return (
-        <UserContext.Provider value={{ getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories,  getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords }}>
+        <UserContext.Provider value={{ getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords }}>
             {children}
         </UserContext.Provider>
     )
