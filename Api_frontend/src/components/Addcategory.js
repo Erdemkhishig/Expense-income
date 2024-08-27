@@ -63,7 +63,7 @@ const color = [
 const URL = "http://localhost:3001"; // Ensure this matches your server URL
 
 export const Addcategory = () => {
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "" , color:""});
     const [selectedColor, setSelectedColor] = useState('#0000FF');
     const {  createCategory } = useData();
     
@@ -72,10 +72,10 @@ export const Addcategory = () => {
         setNewCategory(prev => ({ ...prev, iconName }));
     };
 
-    const handleColorChange = (colorCode) => {
-        console.log('Color selected:', colorCode); // Debugging line
-        setSelectedColor(colorCode);
-        setNewCategory(prev => ({ ...prev, color: colorCode }));
+    const handleColorChange = (color) => {
+        console.log('Color selected:', color); // Debugging line
+        setSelectedColor(color);
+        setNewCategory(prev => ({ ...prev, color }));
     };
 
     // const saveCategory = async () => {
@@ -158,7 +158,7 @@ export const Addcategory = () => {
                         <Button
                             className="bg-green-600 rounded-2xl p-2 w-full text-white"
                             type="button"
-                            onClick={() => createCategory(newCategory.name, newCategory.iconName)} // Call saveCategory on button click
+                            onClick={() => createCategory(newCategory.name, newCategory.iconName, newCategory.color)} // Call saveCategory on button click
                         >
                             Save changes
                         </Button>

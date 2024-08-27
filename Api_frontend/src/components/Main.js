@@ -9,7 +9,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
     Select,
@@ -23,7 +23,7 @@ import {
 import { RiDeleteBinLine } from "react-icons/ri";
 import { parseISO, format } from "date-fns";
 import { useData, UserContext } from './Context';
-import { OneRecord } from "./records";
+import { OneRecord } from "./Records";
 
 
 export const Main = ({ }) => {
@@ -32,6 +32,23 @@ export const Main = ({ }) => {
     const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
     const [newRecord, setNewRecord] = useState({ name: "", amount: "", userId: "", time: "", date: "", categoryId: "", payee: "", note: "", status: "" });
     const { getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords } = useData();
+    const token = localStorage.getItem("token");
+    useEffect(() => {
+        const fetchRecords = async () => {
+            try {
+                const res = await axios.get(`${URL}/records`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                setAllRecords(res.data);
+            } catch (error) {
+                console.error("There was an error fetching the records!", error);
+            }
+        };
+        fetchRecords();
+    }, [URL, token]);
+
 
     // const handleDelete = async (id) => {
     //     try {
@@ -102,7 +119,9 @@ export const Main = ({ }) => {
 
                 <div className="flex flex-col gap-4">
                     {allRecords.map((record, index) => (
-                        <OneRecord key={index} record={record} />
+                        <OneRecord    key={record.id}
+                        record={record}
+                        deleteRecord={deleteRecord}/>
                     ))}
                 </div>
             </div>

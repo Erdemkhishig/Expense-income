@@ -57,7 +57,7 @@ export const Addbutton = () => {
 
     const [newRecords, setNewRecords] = useState({ amount: null, userId: 0, time: null, date: null, categoryId: null, payee: null, note: null, status: null });
     const { getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords } = useData();
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color:"" });
     const [type, setType] = useState('Income');
     const activeColor = type === 'Income' ? 'bg-blue-500' : 'bg-green-500';
     const buttonColor = type === 'Income' ? 'bg-blue-600' : 'bg-green-500';
@@ -65,7 +65,8 @@ export const Addbutton = () => {
     const handleCatChange = (iconName) => {
         console.log('Icon selected:', iconName);
         setNewCategory(prev => ({ ...prev, iconName }));
-        setNewRecords(prev => ({ ...prev, categoryId: iconName }))
+        setNewRecords(prev => ({ ...prev, categoryId: iconName }));
+
     };
 
     return (

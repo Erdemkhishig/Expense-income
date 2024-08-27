@@ -29,11 +29,12 @@ export const UserContextProvider = ({ children }) => {
         }
     };
 
-    const createCategory = async (name, iconName) => {
+    const createCategory = async (name, iconName,color) => {
         try {
             const response = await axios.post(`${URL}/categories`, {
                 name,
                 iconName,
+                color,
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -93,31 +94,29 @@ export const UserContextProvider = ({ children }) => {
             console.error("There was an error creating the category!", error);
         }
     };
-
-    const deleteRecord = async (recordId) => {
+    const deleteRecord = async (id) => {
         try {
-            await axios.delete(`${URL}/records/${recordId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-            setAllRecords(prev => prev.filter(record => record.id !== recordId));
-        } catch (error) {
-            console.error("There was an error deleting the category!", error);
+            await axios.delete(`/api/records/${id}`);
+            setAllRecords(records.filter(record => record.id !== id));
+        } catch (err) {
+            (err.message);
         }
-    };
-
-    // Function to handle login and set token
-    // const login = async (username, password) => {
+    }
+    // const deleteRecord = async (recordId) => {
     //     try {
-    //         const response = await api.post('/login', { username, password });
-    //         const { token } = response.data;
-    //         localStorage.setItem('token', token); // Store token in localStorage
-    //         setToken(token);
+    //         await axios.delete(`${URL}/records/${recordId}`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             }
+    //         });
+    //         setAllRecords(prev => prev.filter(record => record.id !== recordId));
     //     } catch (error) {
-    //         console.error('Login failed', error);
+    //         console.error("There was an error deleting the category!", error);
     //     }
     // };
+
+    
+   
 
     useEffect(() => {
         getAllRecords();
@@ -125,7 +124,7 @@ export const UserContextProvider = ({ children }) => {
 
 
     return (
-        <UserContext.Provider value={{ getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords }}>
+        <UserContext.Provider value={{ getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, allRecords, deleteRecord }}>
             {children}
         </UserContext.Provider>
     )

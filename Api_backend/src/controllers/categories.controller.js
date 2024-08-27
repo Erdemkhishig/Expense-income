@@ -14,13 +14,14 @@ const getAllCategories = async (req, res) => {
 
 
 const createCategory = async (req, res) => {
-    const { name, iconName } = req.body;
+    const { name, iconName, color } = req.body;
 
     const [newCategory] = await db
         .insert(categories)
         .values({
             name: name,
             iconName: iconName,
+            color: color,
             // userId: req.user.id,
         })
         .returning();

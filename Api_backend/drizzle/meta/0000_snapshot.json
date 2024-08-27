@@ -1,5 +1,5 @@
 {
-  "id": "0e0fa0ce-cbf7-4cbd-8224-d6378da4b021",
+  "id": "83b3a3ef-3453-4f5b-b7e0-720065134df3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -120,6 +120,12 @@
         },
         "iconName": {
           "name": "iconName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "color": {
+          "name": "color",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
