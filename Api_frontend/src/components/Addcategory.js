@@ -63,10 +63,10 @@ const color = [
 const URL = "http://localhost:3001"; // Ensure this matches your server URL
 
 export const Addcategory = () => {
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "" , color:""});
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "" });
     const [selectedColor, setSelectedColor] = useState('#0000FF');
-    const {  createCategory } = useData();
-    
+    const { createCategory } = useData();
+
     const handleCatChange = (iconName) => {
         console.log('Icon selected:', iconName); // Debugging line
         setNewCategory(prev => ({ ...prev, iconName }));
@@ -114,7 +114,7 @@ export const Addcategory = () => {
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Add Category</DialogTitle>
+                        <DialogTitle>Add Category1111</DialogTitle>
                     </DialogHeader>
                     <div className="flex gap-4">
                         <Select onValueChange={handleCatChange}>

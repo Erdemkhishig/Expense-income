@@ -29,7 +29,7 @@ export const UserContextProvider = ({ children }) => {
         }
     };
 
-    const createCategory = async (name, iconName,color) => {
+    const createCategory = async (name, iconName, color) => {
         try {
             const response = await axios.post(`${URL}/categories`, {
                 name,
@@ -96,12 +96,26 @@ export const UserContextProvider = ({ children }) => {
     };
     const deleteRecord = async (id) => {
         try {
-            await axios.delete(`/api/records/${id}`);
-            setAllRecords(records.filter(record => record.id !== id));
-        } catch (err) {
-            (err.message);
+            // Log the ID and URL to ensure they are correct
+            console.log(`Deleting record with ID: ${id}`);
+            console.log(`Request URL: ${`${URL}/records/${id}`}`);
+
+            await axios.delete(`${URL}/records/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            // Log the success to confirm deletion
+            console.log(`Record with ID: ${id} deleted successfully`);
+
+            setAllRecords(prev => prev.filter(record => record.id !== id));
+        } catch (error) {
+            // Log the error details for debugging
+            console.error("There was an error deleting the record!", error.response || error.message);
         }
-    }
+    };
+
     // const deleteRecord = async (recordId) => {
     //     try {
     //         await axios.delete(`${URL}/records/${recordId}`, {
@@ -115,8 +129,8 @@ export const UserContextProvider = ({ children }) => {
     //     }
     // };
 
-    
-   
+
+
 
     useEffect(() => {
         getAllRecords();

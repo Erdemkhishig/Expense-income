@@ -23,7 +23,7 @@ import {
 import { RiDeleteBinLine } from "react-icons/ri";
 import { parseISO, format } from "date-fns";
 import { useData, UserContext } from './Context';
-import { OneRecord } from "./Records";
+import { Record } from "./Records"
 
 
 export const Main = ({ }) => {
@@ -119,9 +119,9 @@ export const Main = ({ }) => {
 
                 <div className="flex flex-col gap-4">
                     {allRecords.map((record, index) => (
-                        <OneRecord    key={record.id}
-                        record={record}
-                        deleteRecord={deleteRecord}/>
+                        <Record key={record.id}
+                            record={record}
+                            deleteRecord={deleteRecord} />
                     ))}
                 </div>
             </div>

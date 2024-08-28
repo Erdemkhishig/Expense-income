@@ -27,27 +27,22 @@ const createRecord = async (req, res) => {
     res.json(createdRecord);
 };
 
+
 const deleteRecord = async (req, res) => {
-    // Extract the record ID from the request parameters (assuming it is passed in the URL)
     const { id } = req.params;
 
     try {
-        // Perform the deletion
         const result = await db
             .deleteFrom(records)
             .where(records.id.equals(id))
             .execute();
 
-        // Check if any row was deleted
         if (result.rowCount === 0) {
-            // If no rows were affected, send a 404 response
             return res.status(404).json({ message: 'Record not found' });
         }
 
-        // Send a success response
         res.json({ message: 'Record deleted successfully' });
     } catch (error) {
-        // Handle any errors that occur during the operation
         console.error('Error deleting record:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
