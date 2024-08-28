@@ -235,8 +235,8 @@ export function Aside({ setAccounts, accounts }) {
                         <p className="font-bold mb-4">Category</p>
                         <button className="text-gray-300">Clear</button>
                     </div>
-                    <Categorybar categories={allCategories} />
-                    <Addcategory setNewCategory={setNewCategory} />
+                    <Categorybar />
+                    <Addcategory  />
                 </CardContent>
                 <CardFooter className="flex flex-col gap-4 items-start">
                     <p>Amount Range</p>

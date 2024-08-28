@@ -14,7 +14,28 @@ export const UserContextProvider = ({ children }) => {
     const [allCategories, setAllCategories] = useState([]);
     const token = localStorage.getItem("token");
 
+    const fetchRecords = async () => {
+        try {
+            const res = await axios.get('http://localhost:3001/records', {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            });
+            setAllRecords(res.data);
+        } catch (error) {
+            console.error("Error fetching records", error);
+        }
+    };
+    
 
+    const fetchCategories = async () => {
+        try {
+            const res = await axios.get('http://localhost:3001/categories', {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            });
+            setAllCategories(res.data);
+        } catch (error) {
+            console.error("Error fetching records", error);
+        }
+    };
 
     const getAllCategories = async () => {
         try {
@@ -99,16 +120,16 @@ export const UserContextProvider = ({ children }) => {
             // Log the ID and URL to ensure they are correct
             console.log(`Deleting record with ID: ${id}`);
             console.log(`Request URL: ${`${URL}/records/${id}`}`);
-
+    
             await axios.delete(`${URL}/records/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
+    
             // Log the success to confirm deletion
             console.log(`Record with ID: ${id} deleted successfully`);
-
+    
             setAllRecords(prev => prev.filter(record => record.id !== id));
         } catch (error) {
             // Log the error details for debugging
@@ -138,7 +159,7 @@ export const UserContextProvider = ({ children }) => {
 
 
     return (
-        <UserContext.Provider value={{ getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, allRecords, deleteRecord }}>
+        <UserContext.Provider value={{fetchRecords, fetchCategories, getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, allRecords, deleteRecord }}>
             {children}
         </UserContext.Provider>
     )

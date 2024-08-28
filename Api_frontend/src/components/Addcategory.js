@@ -114,7 +114,7 @@ export const Addcategory = () => {
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Add Category1111</DialogTitle>
+                        <DialogTitle>Add Category</DialogTitle>
                     </DialogHeader>
                     <div className="flex gap-4">
                         <Select onValueChange={handleCatChange}>

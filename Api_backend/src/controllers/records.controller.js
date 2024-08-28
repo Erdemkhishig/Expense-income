@@ -5,12 +5,13 @@ const { records } = require('../database/schema.js');
 
 const getAllRecords = async (req, res) => {
     const recordData = await db.query.records.findMany({
-        // with: {
-        //     category: true,
-        // },
+        with: {
+            category: true,
+        },
     });
     res.json(recordData)
 };
+
 
 const createRecord = async (req, res) => {
     const { newRecords } = req.body;

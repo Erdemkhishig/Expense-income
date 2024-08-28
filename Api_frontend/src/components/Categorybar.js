@@ -5,12 +5,13 @@ import { useData } from "./Context";
 import { Eye } from "lucide-react";
 
 export const Categorybar = () => {
-    const { allCategories, createCategory, getCategoryById } = useData();
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
-    const [fetchCategoryId, setFetchCategoryId] = useState(null);
-    const [categoryDetails, setCategoryDetails] = useState(null);
+    const { allCategories, fetchCategories} = useData();
 
+    // useEffect(() => {
+    //     fetchCategories();
+    // }, [fetchCategories]);
 
+  
     return (
         <div className="flex flex-col gap-4 mb-8 h-fit overflow-scroll">
             {allCategories.map((el, index) => (
@@ -26,22 +27,3 @@ export const Categorybar = () => {
 
     )
 }
-
-// Categorybar.js
-// import React from 'react';
-
-// export function Categorybar({ categories }) {
-//     return (
-//         <div>
-//             {categories.map((category) => (
-//                 <div key={category.id} className="flex items-center space-x-2">
-//                     <div style={{ color: category.color }}>
-//                         {/* Render the icon */}
-//                         {[category.iconName] ? React.createElement([category.iconName], { size: 24 }) : null}
-//                     </div>
-//                     <p>{category.name}</p>
-//                 </div>
-//             ))}
-//         </div>
-//     );
-// }

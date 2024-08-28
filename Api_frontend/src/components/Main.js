@@ -9,7 +9,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import {
     Select,
@@ -29,35 +29,27 @@ import { Record } from "./Records"
 export const Main = ({ }) => {
     const URL = "http://localhost:3001";
 
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "" });
-    const [newRecord, setNewRecord] = useState({ name: "", amount: "", userId: "", time: "", date: "", categoryId: "", payee: "", note: "", status: "" });
-    const { getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords } = useData();
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color:"" });
+   
+    const { getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords,fetchRecords } = useData();
     const token = localStorage.getItem("token");
-    useEffect(() => {
-        const fetchRecords = async () => {
-            try {
-                const res = await axios.get(`${URL}/records`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    }
-                });
-                setAllRecords(res.data);
-            } catch (error) {
-                console.error("There was an error fetching the records!", error);
-            }
-        };
-        fetchRecords();
-    }, [URL, token]);
+    const [newRecord, setNewRecord] = useState({ /* initial state */ });
+  
+   
 
-
-    // const handleDelete = async (id) => {
-    //     try {
-    //         await axios.delete(`${URL}/accounts/${id}`);
-    //         setAccounts(accounts.filter((account) => account.id !== id));
-    //     } catch (error) {
-    //         console.error("There was an error deleting the account!", error);
-    //     }
-    // };
+    // useEffect(() => {
+    //     fetchRecords(); 
+    // }, [fetchRecords]);
+    
+    const handleDelete = async (id) => {
+        try {
+            await deleteRecord(id); // Call the backend delete function
+            setAllRecords((prevRecords) => prevRecords.filter((record) => record.id !== id));  // Update state
+        } catch (error) {
+            console.error("There was an error deleting the record!", error);
+        }
+    };
+    
 
     // const getCategoryById = (categoryId) => {
     //     return categories.find(category => category.id === categoryId) || {};
@@ -118,10 +110,10 @@ export const Main = ({ }) => {
                 <p className="font-bold py-4">Today</p>
 
                 <div className="flex flex-col gap-4">
-                    {allRecords.map((record, index) => (
+                    {allRecords.map((record) => (
                         <Record key={record.id}
                             record={record}
-                            deleteRecord={deleteRecord} />
+                            deleteRecord={handleDelete} />
                     ))}
                 </div>
             </div>

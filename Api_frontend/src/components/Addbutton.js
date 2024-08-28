@@ -53,6 +53,17 @@ export const Addbutton = () => {
         setNewRecords(prev => ({ ...prev, time }));
     };
 
+    const handleAddRecord = () => {
+        createRecord({ ...newRecords, status: type })
+            .then(() => {
+                // Assuming you have a way to update the records in your context or re-fetch them
+                // For example, you could re-fetch records or update state directly
+                fetchRecords(); // Or any function to refresh the records
+            })
+            .catch(error => console.error('Error adding record:', error));
+    };
+
+
     return (
         <div>
             <Dialog>
@@ -153,14 +164,12 @@ export const Addbutton = () => {
                             </div>
 
                             <Button
-                                className={`w-full py-2 text-white ${buttonColor} rounded-md`}
-                                onClick={() => {
-                                    createRecord({ ...newRecords, status: type });
-                                }}
-                                type="button"
-                            >
-                                Add Record
-                            </Button>
+                    className={`w-full py-2 text-white ${buttonColor} rounded-md`}
+                    onClick={handleAddRecord}
+                    type="button"
+                >
+                    Add Record
+                </Button>
                         </div>
                         <div className="w-full h-full px-2">
                             <p className="p-2">Payee</p>

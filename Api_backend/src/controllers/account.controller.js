@@ -58,5 +58,3 @@ module.exports = { getAllAccounts, createAccount, deleteAccount };
 
 
 
-
-
