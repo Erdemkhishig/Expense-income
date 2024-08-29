@@ -5,13 +5,13 @@ import { useData } from "./Context";
 import { Eye } from "lucide-react";
 
 export const Categorybar = () => {
-    const { allCategories, fetchCategories} = useData();
+    const { allCategories, fetchCategories } = useData();
 
     // useEffect(() => {
     //     fetchCategories();
     // }, [fetchCategories]);
 
-  
+
     return (
         <div className="flex flex-col gap-4 mb-8 h-fit overflow-scroll">
             {allCategories.map((el, index) => (

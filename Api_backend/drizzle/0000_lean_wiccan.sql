@@ -21,5 +21,6 @@ CREATE TABLE IF NOT EXISTS "categories" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" varchar(256),
 	"iconName" varchar(256),
-	"color" varchar(256)
+	"color" varchar(256),
+	"userId" integer
 );

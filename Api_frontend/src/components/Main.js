@@ -24,23 +24,41 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { parseISO, format } from "date-fns";
 import { useData, UserContext } from './Context';
 import { Record } from "./Records"
+import { useAuth } from "./Authprovider";
 
 
 export const Main = ({ }) => {
     const URL = "http://localhost:3001";
 
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color:"" });
-   
-    const { getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, getAllRecords, setAllRecords, createRecord, deleteRecord, allRecords,fetchRecords } = useData();
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "" });
+
+    const { getAllCategories, setAllCategories, createCategory, setAllRecords, allRecords, deleteCategory, allCategories, createRecord, deleteRecord, fetchRecords } = useData();
     const token = localStorage.getItem("token");
     const [newRecord, setNewRecord] = useState({ /* initial state */ });
-  
-   
+    const { user } = useAuth()
+
 
     // useEffect(() => {
-    //     fetchRecords(); 
+    //     fetchRecords();
     // }, [fetchRecords]);
-    
+
+    useEffect(() => {
+        const getAllRecords = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`${URL}/records/${user.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                setAllRecords(response.data);
+            } catch (error) {
+                console.error("There was an error fetching the records!", error);
+            }
+        };
+        getAllRecords()
+    }, [])
+
     const handleDelete = async (id) => {
         try {
             await deleteRecord(id); // Call the backend delete function
@@ -49,11 +67,6 @@ export const Main = ({ }) => {
             console.error("There was an error deleting the record!", error);
         }
     };
-    
-
-    // const getCategoryById = (categoryId) => {
-    //     return categories.find(category => category.id === categoryId) || {};
-    // };
 
 
     return (
@@ -79,13 +92,13 @@ export const Main = ({ }) => {
 
                 <Select className="pt-4">
                     <SelectTrigger className="w-[180px] font-bold">
-                        <SelectValue placeholder="Newest first" />
+                        <SelectValue placeholder="Sort by" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                            <SelectLabel className="text-bold">Newest first</SelectLabel>
+                            <SelectLabel className="text-bold">Sort by</SelectLabel>
                             <SelectItem value="apple">Oldest First</SelectItem>
-                            <SelectItem value="banana">...</SelectItem>
+                            <SelectItem value="banana">Newest first</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>

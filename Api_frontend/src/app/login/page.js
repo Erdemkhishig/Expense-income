@@ -95,7 +95,7 @@ const Page = () => {
                     </CardContent>
                     <CardFooter className="flex gap-2 justify-center">
                         <div>Dont have account ?</div>
-                        <Link href="/register" className="text-[#0166FF]"> Sign up</Link>
+                        <Link href="/" className="text-[#0166FF]"> Sign up</Link>
 
 
                     </CardFooter>

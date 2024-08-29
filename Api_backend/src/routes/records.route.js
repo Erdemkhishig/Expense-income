@@ -5,7 +5,7 @@ const { getAllRecords, createRecord, deleteRecord } = require('../controllers/re
 
 const recordRouter = Router();
 
-recordRouter.get("/", getAllRecords);
+recordRouter.get("/:id", getAllRecords);
 recordRouter.post("/", createRecord);
 recordRouter.delete("/:id", deleteRecord);
 

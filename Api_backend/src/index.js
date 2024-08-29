@@ -24,11 +24,3 @@ app.use("/user", userRouter);
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
-
-
-// { "id": "1", "title": "Home", "icon": "🏠" },
-// { "id": "2", "title": "Gift", "icon": "🎁" },
-// { "id": "3", "title": "Food", "icon": "🍔" },
-// {"id": "4", "title": "Drink", "icon": "🍹" },
-// {"id": "5", "title": "Vehicle", "icon": "🚗" },
-// {"id": "6", "title": "Shopping", "icon": "👕" }

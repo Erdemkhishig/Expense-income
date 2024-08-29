@@ -81,7 +81,7 @@ const validate = (values) => {
 import { useAuth } from "@/components/Authprovider";
 
 
-const register = () => {
+export const Register = () => {
 
 
 
@@ -231,4 +231,3 @@ const register = () => {
     );
 }
 
-export default register;

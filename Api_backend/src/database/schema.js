@@ -28,6 +28,7 @@ const categories = pgTable("categories", {
     name: varchar("name", { length: 256 }),
     iconName: varchar("iconName", { length: 256 }),
     color: varchar("color", { length: 256 }),
+    userId: integer("userId"),
 });
 
 

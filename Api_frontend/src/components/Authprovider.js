@@ -16,6 +16,8 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isReady, setIsReady] = useState(false);
 
+
+
     const login = async (email, password) => {
         try {
             const res = await api.post("/auth/login", { email, password });
@@ -44,6 +46,11 @@ export const AuthProvider = ({ children }) => {
             console.log(err);
             toast.error(err.response.data.message);
         }
+    };
+    const logout = () => {
+        localStorage.removeItem("token");
+        setUser(null);
+        router.push("/login"); // Redirect to login page after logout
     };
 
     useEffect(() => {
@@ -85,7 +92,7 @@ export const AuthProvider = ({ children }) => {
     if (!isReady) return null;
 
     return (
-        <AuthContext.Provider value={{ user, login, register }}>
+        <AuthContext.Provider value={{ user, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     );

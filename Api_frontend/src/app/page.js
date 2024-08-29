@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { LogIn } from 'lucide-react';
 import { useAuth } from '@/components/Authprovider';
+import { Register } from '@/components/Register'
 
 
 
@@ -21,7 +22,7 @@ export default function Home() {
     <div >
 
 
-      Hello {user?.username}
+      <Register />
 
 
 

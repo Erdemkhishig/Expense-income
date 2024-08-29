@@ -1,5 +1,5 @@
 {
-  "id": "83b3a3ef-3453-4f5b-b7e0-720065134df3",
+  "id": "ba254188-fc8c-4f32-8414-7fd934d2288b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -127,6 +127,12 @@
         "color": {
           "name": "color",
           "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         }
