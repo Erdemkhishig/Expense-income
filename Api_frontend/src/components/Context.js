@@ -49,13 +49,30 @@ export const UserContextProvider = ({ children }) => {
             console.error("There was an error fetching the categories!", error);
         }
     };
+    // const createCategory = async (newRecords) => {
+    //     try {
+    //         const token = localStorage.getItem('token');
+    //         const response = await axios.post(`${URL}/records`, {
+    //             newRecords
+    //         }, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         setAllRecords(prev => [...prev, response.data]);
+    //     } catch (error) {
+    //         console.error("There was an error creating the record!", error);
+    //     }
+    // };
 
-    const createCategory = async (name, iconName, color) => {
+    const createCategory = async (name, iconName, color, userId) => {
         try {
+            const token = localStorage.getItem('token');
             const response = await axios.post(`${URL}/categories`, {
                 name,
                 iconName,
                 color,
+                userId,
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -172,7 +189,7 @@ export const UserContextProvider = ({ children }) => {
 
 
     return (
-        <UserContext.Provider value={{ fetchRecords, fetchCategories, getAllCategories, setAllCategories, createCategory, deleteCategory, allCategories, allRecords, setAllRecords, createRecord, deleteRecord }}>
+        <UserContext.Provider value={{getAllCategories, fetchRecords, fetchCategories, setAllCategories, createCategory, deleteCategory, allCategories, allRecords, setAllRecords, createRecord, deleteRecord }}>
             {children}
         </UserContext.Provider>
     )

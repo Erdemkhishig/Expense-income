@@ -30,7 +30,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 
 import { Addbutton } from "./Addbutton";
 import { Addcategory } from "./Addcategory"
@@ -39,6 +39,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { UserContext } from "./Context"
 import { Categorybar } from "./Categorybar"
 import { Amountrange } from "./Amountrange";
+import { useAuth } from "./Authprovider";
 
 
 
@@ -50,8 +51,8 @@ export function Aside({ }) {
     const [id, setId] = useState("");
     const [payee, setPayee] = useState("");
     const URL = "http://localhost:3001";
-    const { allCategories, createCategory, getCategoryById } = useData();
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "" });
+    const { allCategories, createCategory, getCategoryById, setallCategories, } = useData();
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "" , userId:""});
 
     const [range, setRange] = useState({ min: 0, max: 1000000 });
 
@@ -78,6 +79,25 @@ export function Aside({ }) {
             max: value[1]
         });
     };
+
+    // const { user } = useAuth()
+
+    // useEffect(() => {
+    //     const getallCategories = async () => {
+    //         try {
+    //             const token = localStorage.getItem('token');
+    //             const response = await axios.get(`${URL}/categories/${user.id}`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 }
+    //             });
+    //             setallCategories(response.data);
+    //         } catch (error) {
+    //             console.error("There was an error fetching the categories!", error);
+    //         }
+    //     };
+    //     getallCategories()
+    // }, [])
 
     // useEffect(() => {
     //     // Fetch the categories when the component mounts or after a category is added

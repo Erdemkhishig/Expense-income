@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { useData } from "./Context";
 import { Eye } from "lucide-react";
 
-export const Categorybar = () => {
-    const { allCategories, fetchCategories } = useData();
 
+export const Categorybar = () => {
+    const { allCategories, fetchCategories, setallCategories } = useData();
+    const URL = "http://localhost:3001";
     // useEffect(() => {
     //     fetchCategories();
     // }, [fetchCategories]);
+
 
 
     return (

@@ -3,7 +3,7 @@ const { getAllCategories, createCategory, deleteCategory, getCategoryId } = requ
 
 const categoryRouter = Router();
 
-categoryRouter.get('/', getAllCategories);
+categoryRouter.get("/", getAllCategories);
 categoryRouter.post('/', createCategory);
 categoryRouter.delete('/:id', deleteCategory);
 categoryRouter.get("/:id", getCategoryId)

@@ -30,9 +30,9 @@ import { useAuth } from "./Authprovider";
 export const Main = ({ }) => {
     const URL = "http://localhost:3001";
 
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "" });
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "",userId:"" });
 
-    const { getAllCategories, setAllCategories, createCategory, setAllRecords, allRecords, deleteCategory, allCategories, createRecord, deleteRecord, fetchRecords } = useData();
+    const { setallCategories,createCategory, setAllRecords, allRecords, deleteCategory, createRecord, deleteRecord, fetchRecords } = useData();
     const token = localStorage.getItem("token");
     const [newRecord, setNewRecord] = useState({ /* initial state */ });
     const { user } = useAuth()
@@ -59,6 +59,7 @@ export const Main = ({ }) => {
         getAllRecords()
     }, [])
 
+    
     const handleDelete = async (id) => {
         try {
             await deleteRecord(id); // Call the backend delete function
