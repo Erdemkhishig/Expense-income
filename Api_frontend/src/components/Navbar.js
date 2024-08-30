@@ -1,15 +1,15 @@
 "use client"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { GiExitDoor } from "react-icons/gi";
-
+import { FaPowerOff } from "react-icons/fa6";
 
 import { Addbutton } from "./Addbutton";
 import Link from "next/link";
 import { useAuth } from '@/components/Authprovider';
+import { FaUser } from "react-icons/fa";
 
 
 export const Navbar = () => {
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
 
 
 
@@ -29,21 +29,24 @@ export const Navbar = () => {
                 <Link href="/dashboard"><span>Dashboard</span>  </Link>
                 <Link href="/records"><span>Records</span></Link>
             </div>
-            <div className="flex gap-8">
+            <div className="flex gap-8 items-center">
                 <div className="w-full"><Addbutton /></div>
-
-                <Avatar>
-                    <AvatarImage src="Avatar.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-
-                <button onClick={logout}>
-                    <GiExitDoor size={32} color="blue" />
-                </button>
-
-
-
-
+                {user && (
+                    <div className="text-blue-500 flex items-center gap-2 border-2 rounded-xl px-2 border-blue-500">
+                        <FaUser /> <p>=</p> {user.name}
+                    </div>
+                )}
+                {user && (
+                    <Avatar>
+                        <AvatarImage src="Avatar.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                )}
+                {user && (
+                    <button onClick={logout}>
+                        <FaPowerOff size={24} color="blue" />
+                    </button>
+                )}
             </div>
 
         </div>

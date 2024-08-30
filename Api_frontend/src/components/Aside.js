@@ -52,67 +52,9 @@ export function Aside({ }) {
     const [payee, setPayee] = useState("");
     const URL = "http://localhost:3001";
     const { allCategories, createCategory, getCategoryById, setallCategories, } = useData();
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "" , userId:""});
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "", userId: "" });
 
-    const [range, setRange] = useState({ min: 0, max: 1000000 });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        const numberValue = Number(value);
-
-        if (name === "min") {
-            setRange(prevRange => ({
-                ...prevRange,
-                min: numberValue > prevRange.max ? prevRange.max : numberValue
-            }));
-        } else if (name === "max") {
-            setRange(prevRange => ({
-                ...prevRange,
-                max: numberValue < prevRange.min ? prevRange.min : numberValue
-            }));
-        }
-    };
-
-    const handleSliderChange = (value) => {
-        setRange({
-            min: value[0],
-            max: value[1]
-        });
-    };
-
-    // const { user } = useAuth()
-
-    // useEffect(() => {
-    //     const getallCategories = async () => {
-    //         try {
-    //             const token = localStorage.getItem('token');
-    //             const response = await axios.get(`${URL}/categories/${user.id}`, {
-    //                 headers: {
-    //                     Authorization: `Bearer ${token}`,
-    //                 }
-    //             });
-    //             setallCategories(response.data);
-    //         } catch (error) {
-    //             console.error("There was an error fetching the categories!", error);
-    //         }
-    //     };
-    //     getallCategories()
-    // }, [])
-
-    // useEffect(() => {
-    //     // Fetch the categories when the component mounts or after a category is added
-    //     const fetchCategories = async () => {
-    //         try {
-    //             const response = await axios.get(`${URL}/categories`);
-    //             // Assuming response.data is an array of categories
-    //             // allCategories = response.data;
-    //         } catch (error) {
-    //             console.error("Error fetching categories:", error);
-    //         }
-    //     };
-
-    //     fetchCategories();
-    // }, [createCategory]); // Depend on createCategory if it's a state
 
     return (
         <div className="px-4 py-8 w-[24rem]">

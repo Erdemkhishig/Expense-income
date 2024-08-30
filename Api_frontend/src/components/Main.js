@@ -30,9 +30,9 @@ import { useAuth } from "./Authprovider";
 export const Main = ({ }) => {
     const URL = "http://localhost:3001";
 
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "",userId:"" });
+    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "", userId: "" });
 
-    const { setallCategories,createCategory, setAllRecords, allRecords, deleteCategory, createRecord, deleteRecord, fetchRecords } = useData();
+    const { setallCategories, createCategory, setAllRecords, allRecords, deleteCategory, createRecord, deleteRecord, fetchRecords } = useData();
     const token = localStorage.getItem("token");
     const [newRecord, setNewRecord] = useState({ /* initial state */ });
     const { user } = useAuth()
@@ -42,24 +42,24 @@ export const Main = ({ }) => {
     //     fetchRecords();
     // }, [fetchRecords]);
 
-    useEffect(() => {
-        const getAllRecords = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get(`${URL}/records/${user.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    }
-                });
-                setAllRecords(response.data);
-            } catch (error) {
-                console.error("There was an error fetching the records!", error);
-            }
-        };
-        getAllRecords()
-    }, [])
+    // useEffect(() => {
+    //     const getAllRecords = async () => {
+    //         try {
+    //             const token = localStorage.getItem('token');
+    //             const response = await axios.get(`${URL}/records/${user.id}`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 }
+    //             });
+    //             setAllRecords(response.data);
+    //         } catch (error) {
+    //             console.error("There was an error fetching the records!", error);
+    //         }
+    //     };
+    //     getAllRecords()
+    // }, [])
 
-    
+
     const handleDelete = async (id) => {
         try {
             await deleteRecord(id); // Call the backend delete function

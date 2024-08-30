@@ -37,8 +37,8 @@ const Page = () => {
     const { login } = useAuth();
 
     return (
-        <main className="max-w-screen-xl m-auto flex h-screen items-center">
-            <div className="flex bg-white h-4/5 w-1/2 items-center justify-center">
+        <main className="max-w-screen-3xl m-auto flex h-screen items-center">
+            <div className="flex bg-white h-full w-1/2 items-center justify-center">
 
                 <Card className="w-1/2 flex flex-col gap-8 border-0">
                     <CardHeader className="flex justify-center items-center gap-8">
@@ -52,8 +52,8 @@ const Page = () => {
                         </CardTitle>
 
                         <div className="flex flex-col justify-center items-center text-black">
-                            <div className="text-lg font-bold flex gap-2 ">Welcome back ! <Laugh />
-                                {/* {userInfo.name} */}
+                            <div className="text-lg font-bold flex gap-2 ">Welcome back !
+
                             </div>
                             <div >Welcome back, please enter your details</div>
 
@@ -62,7 +62,7 @@ const Page = () => {
                     </CardHeader>
                     <CardContent>
                         <div>
-                            <div className="grid w-full items-center gap-4">
+                            <div className="flex flex-col w-full items-center gap-4 ">
                                 <div className="flex flex-col space-y-1.5">
 
                                     <input
@@ -85,7 +85,7 @@ const Page = () => {
                                     />
                                 </div>
                                 <button
-                                    className="bg-blue-500 text-white p-2 rounded-md mt-6"
+                                    className="bg-blue-500 text-white p-2 rounded-md mt-6 w-[300px]"
                                     onClick={() => login(email, password)}
                                 >
                                     Submit
@@ -102,7 +102,7 @@ const Page = () => {
                 </Card>
 
             </div>
-            <div className="flex bg-[#0166FF] h-4/5 w-1/2 ">
+            <div className="flex bg-[#0166FF] h-full w-1/2 ">
 
             </div>
 

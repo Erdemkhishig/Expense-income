@@ -124,8 +124,8 @@ export const Register = () => {
     const { register } = useAuth();
 
     return (
-        <main className="max-w-screen-xl m-auto flex h-screen items-center">
-            <div className="flex bg-white h-4/5 w-1/2 items-center justify-center">
+        <main className="max-w-screen-3xl m-auto flex h-screen items-center">
+            <div className="flex w-1/2 items-center justify-center">
 
                 <Card className=" flex flex-col gap-8 border-0">
                     <CardHeader className="flex justify-center items-center gap-8">
@@ -223,7 +223,7 @@ export const Register = () => {
                 </Card>
 
             </div>
-            <div className="flex bg-[#0166FF] h-4/5 w-1/2 ">
+            <div className="flex bg-[#0166FF] h-full w-1/2 ">
 
             </div>
 

@@ -8,6 +8,8 @@ import Image from 'next/image'
 import { Navbar } from "@/components/Navbar";
 import { Main } from "@/components/Main";
 import { Fullscreen } from 'lucide-react';
+import { Charts } from '@/components/Charts';
+import { Chartcircle } from '@/components/Chartcircle';
 
 
 
@@ -27,15 +29,15 @@ export default function Dashboard() {
 
 
                 <div className="px-4 py-8 flex gap-8 justify-center ">
-                    <div className='h-[256px] w-[432px] bg-[#0166FF] rounded-lg'>
+                    <div className='h-[256px] w-[432px] rounded-lg'>
                         <div className='mt-1'>
-                        <Image
-      src="/Large.png"
-      width={800}
-      height={800}
-      alt="Picture of the author"
-    />
-      </div>
+                            <Image
+                                src="/Large.png"
+                                width={800}
+                                height={800}
+                                alt="Picture of the author"
+                            />
+                        </div>
                         <div className=' text-white p-8'>
                             <p className='text-lg opacity-50'>Cash</p>
                             <div className='flex items-center justify-between'>
@@ -58,7 +60,7 @@ export default function Dashboard() {
 
 
                     </div>
-                    <div className='h-[256px] w-[432px] bg-white rounded-lg'>
+                    <div className='h-[244px] w-[432px] bg-white rounded-lg'>
                         <div className='flex gap-2 items-center p-4 border-gray-100 border-b-2'>
                             <p className='h-3 w-3 rounded-full bg-green-400'></p>
                             <p className='font-bold text-lg'>Your Income</p>
@@ -70,7 +72,7 @@ export default function Dashboard() {
 
                         </div>
                     </div>
-                    <div className='h-[256px] w-[432px]  bg-white rounded-lg'>
+                    <div className='h-[244px] w-[432px]  bg-white rounded-lg'>
                         <div className='flex gap-2 items-center p-4 border-gray-100 border-b-2'>
                             <p className='h-3 w-3 rounded-full bg-blue-400'></p>
                             <p className='font-bold text-lg'>Total Expenses</p>
@@ -86,8 +88,12 @@ export default function Dashboard() {
 
                 </div>
                 <div className="py-2 flex gap-8 justify-center ">
-                    <div className='h-[284px] w-[664px]  bg-white rounded-lg'> </div>
-                    <div className='h-[284px] w-[664px]  bg-white rounded-lg'> </div>
+                    <div className='h-[444px] w-[664px]  bg-white rounded-lg'>
+                        <Charts />
+                    </div>
+                    <div className='h-[444px]  w-[664px]  bg-white rounded-lg'>
+                        <Chartcircle />
+                    </div>
 
 
                 </div>

@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
-const authPaths = ["/login", "/register"];
+const authPaths = ["/login", "/"];
 
 export const AuthProvider = ({ children }) => {
     const router = useRouter();
@@ -15,18 +15,17 @@ export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [isReady, setIsReady] = useState(false);
-
-
+    const [redirectAfterLogin, setRedirectAfterLogin] = useState("/records");
 
     const login = async (email, password) => {
         try {
             const res = await api.post("/auth/login", { email, password });
 
             localStorage.setItem("token", res.data.token);
-
             setUser(res.data.user);
 
-            router.push("/info1");
+            router.push(redirectAfterLogin);
+            setRedirectAfterLogin("/records");
         } catch (err) {
             console.log(err);
             toast.error(err.message);
@@ -35,22 +34,20 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (name, email, password) => {
         try {
-            await api.post("/auth/register", {
-                name,
-                email,
-                password,
-            });
+            await api.post("/auth/", { name, email, password });
 
+            setRedirectAfterLogin("/info1");
             router.push("/login");
         } catch (err) {
             console.log(err);
             toast.error(err.response.data.message);
         }
     };
+
     const logout = () => {
         localStorage.removeItem("token");
         setUser(null);
-        router.push("/login"); // Redirect to login page after logout
+        router.push("/login");
     };
 
     useEffect(() => {
