@@ -43,7 +43,7 @@ import { useAuth } from "./Authprovider";
 
 
 
-export function Aside({ }) {
+export function Aside({ setFilter  }) {
     const [title, setTitle] = useState("");
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
@@ -51,8 +51,21 @@ export function Aside({ }) {
     const [id, setId] = useState("");
     const [payee, setPayee] = useState("");
     const URL = "http://localhost:3001";
-    const { allCategories, createCategory, getCategoryById, setallCategories, } = useData();
-    const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "", userId: "" });
+
+    const [filter, setFilterState] = useState("all");
+
+
+    const handleFilterChange = (value) => {
+        setFilterState(value);
+        if (setFilter) {
+            setFilter(value); // Pass the filter value to the parent component if setFilter exists
+        }
+        console.log(setFilter);
+        
+    };
+
+  
+    
 
 
 
@@ -68,17 +81,17 @@ export function Aside({ }) {
                     <div>
                         <p className="font-semi-bold py-3">Types</p>
                         <div className="flex flex-col justify-start items-start">
-                            <RadioGroup defaultValue="comfortable">
+                        <RadioGroup value={filter} onValueChange={handleFilterChange}>
                                 <div className="flex items-center space-x-2 mt-3">
-                                    <RadioGroupItem value="default" id="r1" />
+                                    <RadioGroupItem value="all" id="r1" />
                                     <Label htmlFor="r1">All</Label>
                                 </div>
                                 <div className="flex items-center space-x-2">
-                                    <RadioGroupItem value="comfortable" id="r2" />
+                                    <RadioGroupItem value="income" id="r2" />
                                     <Label htmlFor="r2">Income</Label>
                                 </div>
                                 <div className="flex items-center space-x-2 mb-4">
-                                    <RadioGroupItem value="compact" id="r3" />
+                                    <RadioGroupItem value="expense" id="r3" />
                                     <Label htmlFor="r3">Expense</Label>
                                 </div>
                             </RadioGroup>

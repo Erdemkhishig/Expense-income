@@ -27,15 +27,26 @@ import { Record } from "./Records"
 import { useAuth } from "./Authprovider";
 
 
-export const Main = ({ }) => {
+export const Main = ({filter  }) => {
     const URL = "http://localhost:3001";
 
     const [newCategory, setNewCategory] = useState({ name: "", iconName: "", color: "", userId: "" });
 
-    const { setallCategories, createCategory, setAllRecords, allRecords, deleteCategory, createRecord, deleteRecord, fetchRecords } = useData();
+    const {  setAllRecords, allRecords,deleteRecord} = useData();
     const token = localStorage.getItem("token");
     const [newRecord, setNewRecord] = useState({ /* initial state */ });
     const { user } = useAuth()
+    const [filteredRecords, setFilteredRecords] = useState([]);
+
+    useEffect(() => {
+        if (filter === "all") {
+            setFilteredRecords(allRecords);
+        } else if (filter === "income") {
+            setFilteredRecords(allRecords.filter(record => record.status === "Income"));
+        } else if (filter === "expense") {
+            setFilteredRecords(allRecords.filter(record => record.status === "Expense"));
+        }
+    }, [filter, allRecords]);
 
 
     // useEffect(() => {
